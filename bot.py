@@ -1,5 +1,6 @@
 from flask import Flask, request
 import asyncio
+import os
 from app.config import settings
 from aiogram import Bot, Dispatcher
 from aiogram.types import Update
@@ -34,5 +35,6 @@ async def on_startup():
 
 # запуск
 if __name__ == "__main__":
-    asyncio.run(on_startup())
-    app.run(host="0.0.0.0", port=8000)
+    # asyncio.run(on_startup())
+    port = int(os.getenv("PORT", 8000))
+    app.run(host="0.0.0.0", port=port)
