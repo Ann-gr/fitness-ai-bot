@@ -19,7 +19,9 @@ setup_routers(dp)
 # это URL, куда Telegram шлёт сообщения
 @app.post(settings.webhook_path)
 async def webhook():
+    print("WEBHOOK HIT")
     data = request.get_json() # получаем JSON от Telegram
+    print(data)
     update = Update.model_validate(data) # создаём Update object
     await dp.feed_update(bot, update) # отправляем update в диспетчер
 
@@ -35,6 +37,6 @@ async def on_startup():
 
 # запуск
 if __name__ == "__main__":
-    # asyncio.run(on_startup())
+    asyncio.run(on_startup())
     port = int(os.getenv("PORT", 8000))
     app.run(host="0.0.0.0", port=port)
