@@ -28,9 +28,12 @@ async def webhook():
     return "ok", 200
 # установка webhook
 async def on_startup():
+    print("STARTUP")
+    print(webhook_url)
     try:
         await bot.delete_webhook(drop_pending_updates=True)
         await bot.set_webhook(webhook_url)
+        print("WEBHOOK SET")
     except Exception as e:
         print("❌ ERROR:", e)
         raise
