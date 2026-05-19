@@ -5,13 +5,9 @@ from aiogram.types import Message
 router = Router(name="start")
 
 @router.message(CommandStart()) # регистрируем обработчик команды /start
-async def cmd_start(
-        message: Message,
-) -> None:
+async def cmd_start(message: Message) -> None:
     await message.answer("Привет!")
 
 @router.message() # регистрируем обработчик всех других сообщений
-async def any_message(
-        message: Message,
-) -> None:
+async def any_message(message: Message) -> None:
     await message.answer("Я тебя не понимаю")

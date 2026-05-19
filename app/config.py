@@ -8,6 +8,7 @@ class Settings(BaseSettings):
     bot_token: str = Field(..., env="BOT_TOKEN")
     base_webhook_url: str = Field(..., env="BASE_WEBHOOK_URL")
     webhook_path: str = Field(..., env="WEBHOOK_PATH")
+    database_url: str = Field(..., env="DATABASE_URL")
 
     class Config:
         env_file = ".env"

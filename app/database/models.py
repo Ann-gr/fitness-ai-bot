@@ -1,0 +1,20 @@
+from sqlalchemy import String, BigInteger, Integer
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+
+# Базовый класс для всех моделей
+class Base(DeclarativeBase):
+    pass
+
+class User(Base):
+    __tablename__ = "users"  # имя таблицы в БД
+
+    # Поля (колонки)
+    id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=True)
+    telegram_id: Mapped[int] = mapped_column(Integer, unique=True, index=True)
+    username: Mapped[str | None] = mapped_column(String(50), nullable=True)
+    age: Mapped[int] = mapped_column()
+    height: Mapped[int] = mapped_column()
+    weight: Mapped[float] = mapped_column()
+    goal: Mapped[str] = mapped_column(String(20))
+    gender: Mapped[str] = mapped_column(String(10))
+    activity: Mapped[str] = mapped_column(String(20))
