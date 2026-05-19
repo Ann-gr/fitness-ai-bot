@@ -29,19 +29,19 @@ async def weight_request(message: Message, state: FSMContext):
 @router.message(UserProfile.weight)
 async def goal_request(message: Message, state: FSMContext):
     await state.update_data(weight=float(message.text))
-    await message.answer("Хорошо идём! Какая у тебя цель?\n Например: похудение / набор массы / поддержание формы")
+    await message.answer("Хорошо идём! Какая у тебя цель? Например: похудение / набор массы / поддержание формы")
     await state.set_state(UserProfile.goal)
 
 @router.message(UserProfile.goal)
 async def gender_request(message: Message, state: FSMContext):
     await state.update_data(goal=message.text)
-    await message.answer("Осталось всего пару вопросов! Укажи пол:\n мужчина / женщина")
+    await message.answer("Осталось всего пару вопросов! Укажи пол: мужчина / женщина")
     await state.set_state(UserProfile.gender)
 
 @router.message(UserProfile.gender)
 async def activity_request(message: Message, state: FSMContext):
     await state.update_data(gender=message.text)
-    await message.answer("И последний шаг! Укажи свой уровень активности:\n низкий / средний / высокий")
+    await message.answer("И последний шаг! Укажи свой уровень активности: низкий / средний / высокий")
     await state.set_state(UserProfile.activity)
 
 @router.message(UserProfile.activity)
