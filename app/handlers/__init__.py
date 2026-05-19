@@ -1,5 +1,7 @@
 from aiogram import Dispatcher
-from app.handlers.start import router
+from app.handlers.profile import router as profile_router
+from app.handlers.fallback import router as fallback_router
 
-def setup_routers(dp: Dispatcher): # helper-function для модификации dispatcher
-    dp.include_router(router)
+def setup_routers(dp: Dispatcher):
+    dp.include_router(profile_router)
+    dp.include_router(fallback_router)

@@ -4,11 +4,12 @@ from app.config import settings
 from aiogram import Bot, Dispatcher
 from aiogram.types import Update
 from app.handlers.__init__ import setup_routers
+from aiogram.fsm.storage.memory import MemoryStorage
 
 # создаём бота
 bot = Bot(token=settings.bot_token)
 # создаём диспетчер
-dp = Dispatcher()
+dp = Dispatcher(storage=MemoryStorage())
 # подключаем роуты
 setup_routers(dp)
 # вебхук
