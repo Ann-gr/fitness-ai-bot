@@ -2,18 +2,27 @@ from fastapi import FastAPI, Request
 from contextlib import asynccontextmanager
 from app.config import settings
 from aiogram import Bot, Dispatcher
+from app.middlewares.db import DBSessionMiddleware
 from aiogram.types import Update
 from app.handlers.__init__ import setup_routers
 from aiogram.fsm.storage.memory import MemoryStorage
+from app.database.db import engine, Base
+from app.database import models
 
 # создаём бота
 bot = Bot(token=settings.bot_token)
 # создаём диспетчер
 dp = Dispatcher(storage=MemoryStorage())
+dp.update.middleware(DBSessionMiddleware())
 # подключаем роуты
 setup_routers(dp)
 # вебхук
 webhook_url = settings.base_webhook_url + settings.webhook_path
+
+# инициализация базы данных
+async def init_db():
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
 
 # установка webhook
 async def on_startup():
@@ -31,6 +40,7 @@ async def on_startup():
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    await init_db()
     await on_startup()
 
     yield

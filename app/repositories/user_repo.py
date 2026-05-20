@@ -1,7 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.database.models import User
 
-
 async def create_user_repo(
     session: AsyncSession,
     telegram_id: int,

@@ -1,9 +1,6 @@
 from sqlalchemy import String, BigInteger
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
-
-# Базовый класс для всех моделей
-class Base(DeclarativeBase):
-    pass
+from sqlalchemy.orm import Mapped, mapped_column
+from app.database.db import Base
 
 class User(Base):
     __tablename__ = "users"  # имя таблицы в БД

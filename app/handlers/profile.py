@@ -45,23 +45,27 @@ async def activity_request(message: Message, state: FSMContext):
     await state.set_state(UserProfile.activity)
 
 @router.message(UserProfile.activity)
-async def save_profile(message: Message, state: FSMContext):
+async def save_profile(
+    message: Message,
+    state: FSMContext,
+    session: AsyncSession,
+):
     await state.update_data(activity=message.text)
 
     data = await state.get_data()
 
-    async with async_session_factory() as session:
-        await create_user_service(
-            session=session,
-            telegram_id=message.from_user.id,
-            username=message.from_user.username,
-            age=data["age"],
-            height=data["height"],
-            weight=data["weight"],
-            goal=data["goal"],
-            gender=data["gender"],
-            activity=data["activity"],
-        )
+    await create_user_service(
+        session=session,
+        telegram_id=message.from_user.id,
+        username=message.from_user.username,
+        age=data["age"],
+        height=data["height"],
+        weight=data["weight"],
+        goal=data["goal"],
+        gender=data["gender"],
+        activity=data["activity"],
+    )
 
     await message.answer("Готово! 🎉 Твой профиль создан.")
+
     await state.clear()
