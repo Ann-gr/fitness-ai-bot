@@ -1,4 +1,4 @@
-from sqlalchemy import String, BigInteger, Integer
+from sqlalchemy import String, BigInteger
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 # Базовый класс для всех моделей
@@ -9,8 +9,8 @@ class User(Base):
     __tablename__ = "users"  # имя таблицы в БД
 
     # Поля (колонки)
-    id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=True)
-    telegram_id: Mapped[int] = mapped_column(Integer, unique=True, index=True)
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    telegram_id: Mapped[int] = mapped_column(BigInteger, unique=True)
     username: Mapped[str | None] = mapped_column(String(50), nullable=True)
     age: Mapped[int] = mapped_column()
     height: Mapped[int] = mapped_column()
