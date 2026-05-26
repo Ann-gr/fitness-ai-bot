@@ -64,7 +64,7 @@ async def profile_flow(message: Message, state: FSMContext, session: AsyncSessio
 
         result = await create_user_service(
             session=session,
-            progile=profile
+            profile=profile
         )
 
         if not result.success:

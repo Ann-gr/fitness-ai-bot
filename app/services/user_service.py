@@ -11,27 +11,29 @@ async def create_user_service(
     
     existing_user = await get_user_by_telegram_id(session, profile.telegram_id)
 
-    if not existing_user:
-        try: 
-            user = await create_user_repo(
-                session=session,
-                profile=profile,
-            )
-            await session.commit()
-
-        except Exception:
-            await session.rollback()
-            return Result(
-                success=False,
-                error="DATABASE_ERROR"
-            )
-
+    if existing_user:
         return Result(
-            success=True,
-            data = user
+            success=False,
+            error="USER_ALREADY_EXISTS"
         )
     
+    try: 
+        user = await create_user_repo(
+            session=session,
+            profile=profile,
+        )            
+        await session.commit()
+        print(user.id)
+
+    except Exception as e:
+        print(e)
+        await session.rollback()
+        return Result(
+            success=False,
+            error="DATABASE_ERROR"
+        )
+
     return Result(
-        success=False,
-        error="USER_ALREADY_EXISTS"
+        success=True,
+        data = user
     )

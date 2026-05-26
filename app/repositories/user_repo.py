@@ -20,7 +20,7 @@ async def create_user_repo(
 
     session.add(user)
     await session.flush()
-    await session.refresh(user)
+    print(user.id)
 
     return user
 
