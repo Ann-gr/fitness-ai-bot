@@ -46,7 +46,7 @@ async def profile_flow(message: Message, state: FSMContext, session: AsyncSessio
     )
 
     # если шаги закончились → создаём профиль
-    if not next_step:
+    if next_step is None:
         data = await state.get_data()
 
         try:
