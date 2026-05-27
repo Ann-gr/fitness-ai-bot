@@ -7,6 +7,14 @@ from app.constants.profile_questions import (
     GENDER_QUESTION,
     ACTIVITY_QUESTION
 )
+from app.services.profile_validation_service import (
+    validate_age,
+    validate_height,
+    validate_weight,
+    validate_goal,
+    validate_gender,
+    validate_activity
+)
 
 PROFILE_STEPS = [
     {
@@ -15,6 +23,7 @@ PROFILE_STEPS = [
         "state": UserProfile.age,
         "next_state": UserProfile.height.state,
         "type": int,
+        "validator": validate_age,
     },
     {
         "field": "height",
@@ -22,6 +31,7 @@ PROFILE_STEPS = [
         "state": UserProfile.height,
         "next_state": UserProfile.weight.state,
         "type": int,
+        "validator": validate_height,
     },
     {
         "field": "weight",
@@ -29,6 +39,7 @@ PROFILE_STEPS = [
         "state": UserProfile.weight,
         "next_state": UserProfile.goal.state,
         "type": float,
+        "validator": validate_weight,
     },
     {
         "field": "goal",
@@ -36,6 +47,7 @@ PROFILE_STEPS = [
         "state": UserProfile.goal,
         "next_state": UserProfile.gender.state,
         "type": str,
+        "validator": validate_goal,
     },
     {
         "field": "gender",
@@ -43,6 +55,7 @@ PROFILE_STEPS = [
         "state": UserProfile.gender,
         "next_state": UserProfile.activity.state,
         "type": str,
+        "validator": validate_gender,
     },
     {
         "field": "activity",
@@ -50,5 +63,6 @@ PROFILE_STEPS = [
         "state": UserProfile.activity,
         "next_state": None,
         "type": str,
+        "validator": validate_activity,
     }
 ]

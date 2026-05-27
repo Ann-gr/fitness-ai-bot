@@ -40,6 +40,12 @@ async def profile_flow(message: Message, state: FSMContext, session: AsyncSessio
     except ValueError:
         await message.answer("Некорректный формат. Попробуй ещё раз.")
         return
+    
+    is_valid = current_step["validator"](value)
+
+    if not is_valid:
+        await message.answer("Некорректное значение. Попробуй ещё раз.")
+        return
 
     # сохраняем ответ
     await state.update_data({current_step["field"]: value})
