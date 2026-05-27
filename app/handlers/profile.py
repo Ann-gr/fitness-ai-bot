@@ -2,6 +2,7 @@ from aiogram import Router
 from aiogram.filters import Command
 from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
+from aiogram.filters import StateFilter
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from pydantic import ValidationError
@@ -22,7 +23,7 @@ async def start_profile(message: Message, state: FSMContext):
     await message.answer(step["question"])
 
 
-@router.message(UserProfile.age, UserProfile.height, UserProfile.weight, UserProfile.goal, UserProfile.gender, UserProfile.activity)
+@router.message(StateFilter(UserProfile.age, UserProfile.height, UserProfile.weight, UserProfile.goal, UserProfile.gender, UserProfile.activity))
 async def profile_flow(message: Message, state: FSMContext, session: AsyncSession):
     current_state = await state.get_state()
     current_step = get_step_by_state(current_state)
@@ -34,7 +35,7 @@ async def profile_flow(message: Message, state: FSMContext, session: AsyncSessio
     # парсим значение
     try:
         value = current_step["type"](message.text)
-    except Exception:
+    except ValueError:
         await message.answer("Некорректный формат. Попробуй ещё раз.")
         return
 
