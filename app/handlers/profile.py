@@ -14,7 +14,10 @@ from app.services.profile_service import build_user_profile, is_adult
 from app.services.user_service import create_user_service
 from app.states.user_profile import UserProfile
 
+import logging
+
 router = Router(name="profile")
+logger = logging.getLogger(__name__)
 
 @router.message(Command("start"))
 async def start_profile(message: Message, state: FSMContext):
@@ -25,8 +28,10 @@ async def start_profile(message: Message, state: FSMContext):
 
 @router.message(StateFilter(UserProfile.age, UserProfile.height, UserProfile.weight, UserProfile.goal, UserProfile.gender, UserProfile.activity))
 async def profile_flow(message: Message, state: FSMContext, session: AsyncSession):
-    print("PROFILE FLOW STARTED")
-    print(session)
+    logger.info(
+        "Profile flow started for user_id=%s",
+        message.from_user.id
+    )
     current_state = await state.get_state()
     current_step = get_step_by_state(current_state)
 
@@ -44,7 +49,7 @@ async def profile_flow(message: Message, state: FSMContext, session: AsyncSessio
     is_valid = current_step["validator"](value)
 
     if not is_valid:
-        await message.answer("Некорректное значение. Попробуй ещё раз.")
+        await message.answer(current_step["error_message"])
         return
 
     # сохраняем ответ
@@ -58,27 +63,22 @@ async def profile_flow(message: Message, state: FSMContext, session: AsyncSessio
         data = await state.get_data()
 
         try:
-            print(await state.get_state())
-            print(await state.get_data())
+            logger.info(await state.get_state())
+            logger.info(await state.get_data())
             validated_data = UserProfileSchema(**data)
         except ValidationError as e:
-            print(e)
+            logger.exception("Validation error")
             await message.answer("Проверь, пожалуйста, корректность данных.")
-            return
-
-        if not is_adult(validated_data.age):
-            await message.answer("Для несовершеннолетних рекомендуется заниматься с тренером или родителями.")
-            await state.clear()
             return
         
         profile = build_user_profile(message, validated_data)
 
-        print("BEFORE CREATE USER")
+        logger.info("BEFORE CREATE USER")
         result = await create_user_service(
             session=session,
             profile=profile
         )
-        print("AFTER CREATE USER")
+        logger.info("AFTER CREATE USER")
 
         if not result.success:
             await message.answer("Профиль уже существует.")

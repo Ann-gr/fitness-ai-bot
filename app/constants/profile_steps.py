@@ -24,6 +24,7 @@ PROFILE_STEPS = [
         "next_state": UserProfile.height.state,
         "type": int,
         "validator": validate_age,
+        "error_message": "Допустимый возраст от 18 до 100 лет. Для несовершеннолетних рекомендуется заниматься с тренером или родителями."
     },
     {
         "field": "height",
@@ -32,6 +33,7 @@ PROFILE_STEPS = [
         "next_state": UserProfile.weight.state,
         "type": int,
         "validator": validate_height,
+        "error_message": "Допустимый рост от 140 до 210 см."
     },
     {
         "field": "weight",
@@ -40,6 +42,7 @@ PROFILE_STEPS = [
         "next_state": UserProfile.goal.state,
         "type": float,
         "validator": validate_weight,
+        "error_message": "Допустимый вес от 40 до 150кг."
     },
     {
         "field": "goal",
@@ -48,6 +51,7 @@ PROFILE_STEPS = [
         "next_state": UserProfile.gender.state,
         "type": str,
         "validator": validate_goal,
+        "error_message": "Выбери цель из предложенных в примере."
     },
     {
         "field": "gender",
@@ -56,6 +60,7 @@ PROFILE_STEPS = [
         "next_state": UserProfile.activity.state,
         "type": str,
         "validator": validate_gender,
+        "error_message": "Выбери пол из предложенных в примере."
     },
     {
         "field": "activity",
@@ -64,5 +69,6 @@ PROFILE_STEPS = [
         "next_state": None,
         "type": str,
         "validator": validate_activity,
+        "error_message": "Выбери активность из предложенных в примере."
     }
 ]
