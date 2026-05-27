@@ -7,6 +7,7 @@ from aiogram.filters import StateFilter
 from sqlalchemy.ext.asyncio import AsyncSession
 from pydantic import ValidationError
 
+from app.constants.profile_steps import PROFILE_STEPS
 from app.schemas.user import UserProfileSchema
 from app.services.profile_flow_service import get_step_by_state
 from app.services.profile_service import build_user_profile, is_adult
@@ -17,7 +18,7 @@ router = Router(name="profile")
 
 @router.message(Command("start"))
 async def start_profile(message: Message, state: FSMContext):
-    step = get_step_by_state(None)
+    step = PROFILE_STEPS[0]
 
     await state.set_state(step["state"])
     await message.answer(step["question"])
@@ -44,9 +45,7 @@ async def profile_flow(message: Message, state: FSMContext, session: AsyncSessio
     await state.update_data({current_step["field"]: value})
 
     # следующий шаг
-    next_step = get_step_by_state(
-        current_step["next_state"].state if current_step["next_state"] else None
-    )
+    next_step = get_step_by_state(current_step["next_state"])
 
     # если шаги закончились → создаём профиль
     if next_step is None:
