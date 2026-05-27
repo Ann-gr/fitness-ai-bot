@@ -6,10 +6,11 @@ from aiogram.fsm.context import FSMContext
 from sqlalchemy.ext.asyncio import AsyncSession
 from pydantic import ValidationError
 
+from app.schemas.user import UserProfileSchema
 from app.services.profile_flow_service import get_step_by_state
 from app.services.profile_service import build_user_profile, is_adult
 from app.services.user_service import create_user_service
-from app.schemas.user import UserProfileSchema
+from app.states.user_profile import UserProfile
 
 router = Router(name="profile")
 
@@ -21,7 +22,7 @@ async def start_profile(message: Message, state: FSMContext):
     await message.answer(step["question"])
 
 
-@router.message()
+@router.message(UserProfile.age, UserProfile.height, UserProfile.weight, UserProfile.goal, UserProfile.gender, UserProfile.activity)
 async def profile_flow(message: Message, state: FSMContext, session: AsyncSession):
     current_state = await state.get_state()
     current_step = get_step_by_state(current_state)
@@ -50,8 +51,11 @@ async def profile_flow(message: Message, state: FSMContext, session: AsyncSessio
         data = await state.get_data()
 
         try:
+            print(await state.get_state())
+            print(await state.get_data())
             validated_data = UserProfileSchema(**data)
-        except ValidationError:
+        except ValidationError as e:
+            print(e)
             await message.answer("Проверь, пожалуйста, корректность данных.")
             return
 
