@@ -22,9 +22,10 @@ async def start_profile(message: Message, state: FSMContext):
     await state.set_state(step["state"])
     await message.answer(step["question"])
 
-
 @router.message(StateFilter(UserProfile.age, UserProfile.height, UserProfile.weight, UserProfile.goal, UserProfile.gender, UserProfile.activity))
 async def profile_flow(message: Message, state: FSMContext, session: AsyncSession):
+    print("PROFILE FLOW STARTED")
+    print(session)
     current_state = await state.get_state()
     current_step = get_step_by_state(current_state)
 
@@ -67,10 +68,12 @@ async def profile_flow(message: Message, state: FSMContext, session: AsyncSessio
         
         profile = build_user_profile(message, validated_data)
 
+        print("BEFORE CREATE USER")
         result = await create_user_service(
             session=session,
             profile=profile
         )
+        print("AFTER CREATE USER")
 
         if not result.success:
             await message.answer("Профиль уже существует.")

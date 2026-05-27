@@ -13,7 +13,7 @@ from app.database import models
 bot = Bot(token=settings.bot_token)
 # создаём диспетчер
 dp = Dispatcher(storage=MemoryStorage())
-dp.update.middleware(DBSessionMiddleware())
+dp.message.middleware(DBSessionMiddleware())
 # подключаем роуты
 setup_routers(dp)
 # вебхук
@@ -59,4 +59,4 @@ async def webhook(request: Request):
     update = Update.model_validate(data) # создаём Update object
     await dp.feed_update(bot, update) # отправляем update в диспетчер
 
-    return "ok", 200
+    return {"status": "ok"}
