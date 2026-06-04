@@ -7,7 +7,6 @@ from aiogram.types import Update
 from app.handlers.__init__ import setup_routers
 from aiogram.fsm.storage.memory import MemoryStorage
 from app.database.db import engine, Base
-from app.database import models
 
 # создаём бота
 bot = Bot(token=settings.bot_token)
