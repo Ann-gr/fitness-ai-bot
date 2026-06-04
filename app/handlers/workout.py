@@ -11,7 +11,7 @@ from app.services.user_service import get_user_service
 router = Router(name="workout")
 
 @router.message(Command("workout"))
-async def start_workout_generation(session: AsyncSession, message: Message):
+async def start_workout_generation(message: Message, session: AsyncSession):
     telegram_id = message.from_user.id
     result = await get_user_service(session, telegram_id)
     if not result.success:
