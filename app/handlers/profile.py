@@ -26,7 +26,7 @@ async def start_profile(message: Message, state: FSMContext):
     await state.set_state(step["state"])
     await message.answer(step["question"])
 
-@router.message(StateFilter(UserProfile.age, UserProfile.height, UserProfile.weight, UserProfile.goal, UserProfile.gender, UserProfile.activity))
+@router.message(StateFilter(UserProfile.age, UserProfile.height, UserProfile.weight, UserProfile.goal, UserProfile.gender, UserProfile.activity, UserProfile.training_place, UserProfile.training_type, UserProfile.training_count))
 async def profile_flow(message: Message, state: FSMContext, session: AsyncSession):
     logger.info(
         "Profile flow started for user_id=%s",
