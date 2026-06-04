@@ -1,1 +1,1 @@
-DEFAULT_MODEL = "deepseek/deepseek-chat"
+DEFAULT_MODEL = "google/gemma-4-31b-it:free"
