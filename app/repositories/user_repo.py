@@ -16,6 +16,9 @@ async def create_user_repo(
         goal=profile.goal,
         gender=profile.gender,
         activity=profile.activity,
+        training_place=profile.training_place,
+        training_type=profile.training_type,
+        training_count=profile.count
     )
 
     session.add(user)

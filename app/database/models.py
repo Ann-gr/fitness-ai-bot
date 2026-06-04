@@ -15,3 +15,6 @@ class User(Base):
     goal: Mapped[str] = mapped_column(String(20))
     gender: Mapped[str] = mapped_column(String(10))
     activity: Mapped[str] = mapped_column(String(20))
+    training_place: Mapped[str] = mapped_column(String(20))
+    training_type: Mapped[str] = mapped_column(String(20))
+    training_count: Mapped[int] = mapped_column()

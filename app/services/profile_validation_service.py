@@ -2,6 +2,10 @@ from app.constants.profile_parameters import (
     ALLOWED_GOALS,
     ALLOWED_GENDERS,
     ALLOWED_ACTIVITIES,
+    ALLOWED_TRAINING_PLACES,
+    ALLOWED_TRAINING_TYPES,
+    MIN_TRAINING_COUNT,
+    MAX_TRAINING_COUNT,
     MIN_AGE,
     MAX_AGE,
     MIN_HEIGHT,
@@ -27,3 +31,12 @@ def validate_gender(gender: str) -> bool:
 
 def validate_activity(activity: str) -> bool:
     return activity.lower() in ALLOWED_ACTIVITIES
+
+def validate_training_place(training_place: str) -> bool:
+    return training_place.lower() in ALLOWED_TRAINING_PLACES
+
+def validate_training_types(training_type: str) -> bool:
+    return training_type.lower() in ALLOWED_TRAINING_TYPES
+
+def validate_training_counts(training_count: int) -> bool:
+    return MIN_TRAINING_COUNT <= training_count <= MAX_TRAINING_COUNT

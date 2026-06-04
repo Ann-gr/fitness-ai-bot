@@ -17,6 +17,9 @@ def build_workout_messages(
             f"Вес: {user.weight}\n"
             f"Цель: {user.goal}\n"
             f"Пол: {user.gender}\n"
-            f"Уровень активности: {user.activity}\n"}
+            f"Уровень активности: {user.activity}\n"
+            f"Место тренировки: {user.training_place}\n"
+            f"Тип тренировки: {user.training_type}\n"
+            f"Количество тренировок в неделю: {user.training_count}\n"}
     ]
     return messages

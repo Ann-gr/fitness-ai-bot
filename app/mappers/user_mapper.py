@@ -13,4 +13,7 @@ def to_user_profile_dto(
                 goal=user.goal,
                 gender=user.gender,
                 activity=user.activity,
+                training_place=user.training_place,
+                training_type=user.training_type,
+                training_count=user.training_count
         )

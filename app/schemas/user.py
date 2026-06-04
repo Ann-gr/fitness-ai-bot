@@ -7,3 +7,6 @@ class UserProfileSchema(BaseModel):
     goal: str
     gender: str
     activity: str
+    training_place: str
+    training_type: str
+    training_count: str

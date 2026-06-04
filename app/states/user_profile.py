@@ -7,3 +7,6 @@ class UserProfile(StatesGroup):
     goal = State()
     gender = State()
     activity = State()
+    training_place = State()
+    training_type = State()
+    training_count = State()

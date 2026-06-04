@@ -5,7 +5,10 @@ from app.constants.profile_questions import (
     WEIGHT_QUESTION,
     GOAL_QUESTION,
     GENDER_QUESTION,
-    ACTIVITY_QUESTION
+    ACTIVITY_QUESTION,
+    TRAINING_PLACE_QUESTION,
+    TRAINING_TYPE_QUESTION,
+    TRAINING_COUNT_QUESTION
 )
 from app.services.profile_validation_service import (
     validate_age,
@@ -13,7 +16,10 @@ from app.services.profile_validation_service import (
     validate_weight,
     validate_goal,
     validate_gender,
-    validate_activity
+    validate_activity,
+    validate_training_place,
+    validate_training_types,
+    validate_training_counts
 )
 
 PROFILE_STEPS = [
@@ -70,5 +76,32 @@ PROFILE_STEPS = [
         "type": str,
         "validator": validate_activity,
         "error_message": "Выбери активность из предложенных в примере."
+    },
+    {
+        "field": "training_place",
+        "question": TRAINING_PLACE_QUESTION,
+        "state": UserProfile.training_place,
+        "next_state": None,
+        "type": str,
+        "validator": validate_training_place,
+        "error_message": "Выбери место из предложенных в примере."
+    },
+    {
+        "field": "training_type",
+        "question": TRAINING_TYPE_QUESTION,
+        "state": UserProfile.training_type,
+        "next_state": None,
+        "type": str,
+        "validator": validate_training_types,
+        "error_message": "Выбери тип тренировки из предложенных в примере."
+    },
+    {
+        "field": "training_count",
+        "question": TRAINING_COUNT_QUESTION,
+        "state": UserProfile.training_count,
+        "next_state": None,
+        "type": str,
+        "validator": validate_training_counts,
+        "error_message": "Выбери количество тренировок из предложенных в примере."
     }
 ]

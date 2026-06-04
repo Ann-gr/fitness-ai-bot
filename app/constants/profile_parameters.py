@@ -15,6 +15,20 @@ ALLOWED_ACTIVITIES = [
     "высокий"
 ]
 
+ALLOWED_TRAINING_PLACES = [
+    "дом",
+    "спортзал"
+]
+
+ALLOWED_TRAINING_TYPES = [
+    "силовые",
+    "кардио",
+    "смешанные"
+]
+
+MIN_TRAINING_COUNT = 2
+MAX_TRAINING_COUNT = 5
+
 MIN_AGE = 18
 MAX_AGE = 100
 
