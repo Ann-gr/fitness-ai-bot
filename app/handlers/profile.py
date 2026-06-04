@@ -10,7 +10,7 @@ from pydantic import ValidationError
 from app.constants.profile_steps import PROFILE_STEPS
 from app.schemas.user import UserProfileSchema
 from app.services.profile_flow_service import get_step_by_state
-from app.services.profile_service import build_user_profile, is_adult
+from app.services.profile_service import build_user_profile
 from app.services.user_service import create_user_service
 from app.states.user_profile import UserProfile
 
@@ -67,7 +67,7 @@ async def profile_flow(message: Message, state: FSMContext, session: AsyncSessio
             logger.info(await state.get_data())
             validated_data = UserProfileSchema(**data)
         except ValidationError as e:
-            logger.exception("Validation error")
+            logger.exception(f"Validation error: {e}")
             await message.answer("Проверь, пожалуйста, корректность данных.")
             return
         
