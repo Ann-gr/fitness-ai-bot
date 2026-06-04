@@ -9,7 +9,7 @@ def build_workout_messages(
          "warmup\n"
          "main_workout\n"
          "cardio\n"
-         "stretching_\n"
+         "stretching\n"
          "Каждое поле должно содержать строку. Не добавляй пояснений. Не используй markdown. Не оборачивай ответ в ```json. Верни только JSON объект."},
         {"role": "user", "content":
             f"Возраст: {user.age}\n"
