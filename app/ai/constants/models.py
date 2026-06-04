@@ -1,1 +1,1 @@
-DEFAULT_MODEL = "mistralai/mistral-7b-instruct"
+DEFAULT_MODEL = "deepseek/deepseek-chat"
