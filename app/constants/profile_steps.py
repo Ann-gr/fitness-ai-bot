@@ -17,7 +17,7 @@ from app.services.profile_validation_service import (
     validate_goal,
     validate_gender,
     validate_activity,
-    validate_training_place,
+    validate_training_places,
     validate_training_types,
     validate_training_counts
 )
@@ -72,7 +72,7 @@ PROFILE_STEPS = [
         "field": "activity",
         "question": ACTIVITY_QUESTION,
         "state": UserProfile.activity,
-        "next_state": None,
+        "next_state": UserProfile.training_place.state,
         "type": str,
         "validator": validate_activity,
         "error_message": "Выбери активность из предложенных в примере."
@@ -81,16 +81,16 @@ PROFILE_STEPS = [
         "field": "training_place",
         "question": TRAINING_PLACE_QUESTION,
         "state": UserProfile.training_place,
-        "next_state": None,
+        "next_state": UserProfile.training_type.state,
         "type": str,
-        "validator": validate_training_place,
+        "validator": validate_training_places,
         "error_message": "Выбери место из предложенных в примере."
     },
     {
         "field": "training_type",
         "question": TRAINING_TYPE_QUESTION,
         "state": UserProfile.training_type,
-        "next_state": None,
+        "next_state": UserProfile.training_count.state,
         "type": str,
         "validator": validate_training_types,
         "error_message": "Выбери тип тренировки из предложенных в примере."

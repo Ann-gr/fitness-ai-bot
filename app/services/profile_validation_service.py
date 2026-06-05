@@ -32,7 +32,7 @@ def validate_gender(gender: str) -> bool:
 def validate_activity(activity: str) -> bool:
     return activity.lower() in ALLOWED_ACTIVITIES
 
-def validate_training_place(training_place: str) -> bool:
+def validate_training_places(training_place: str) -> bool:
     return training_place.lower() in ALLOWED_TRAINING_PLACES
 
 def validate_training_types(training_type: str) -> bool:
