@@ -100,7 +100,7 @@ PROFILE_STEPS = [
         "question": TRAINING_COUNT_QUESTION,
         "state": UserProfile.training_count,
         "next_state": None,
-        "type": str,
+        "type": int,
         "validator": validate_training_counts,
         "error_message": "Выбери количество тренировок из предложенных в примере."
     }

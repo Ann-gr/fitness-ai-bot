@@ -9,4 +9,4 @@ class UserProfileSchema(BaseModel):
     activity: str
     training_place: str
     training_type: str
-    training_count: str
+    training_count: int
