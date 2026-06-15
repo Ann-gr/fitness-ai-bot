@@ -5,6 +5,7 @@ from aiogram.types import Message
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.ai.services.workout_generation_service import generate_workout_plan
+from app.ai.formatters.workout_formatter import format_workout_plan
 from app.mappers.user_mapper import to_user_profile_dto
 from app.services.user_service import get_user_service
 
@@ -25,11 +26,8 @@ async def start_workout_generation(message: Message, session: AsyncSession):
         await message.answer("Произошла ошибка во время генерации, попробуй ещё раз.")
         return
         
-    workout_plan = (
-        f"Разминка:\n{generated_workout.data.warmup}\n\n"
-        f"Основная тренировка:\n{generated_workout.data.main_workout}\n\n"
-        f"Кардио:\n{generated_workout.data.cardio}\n\n"
-        f"Растяжка:\n{generated_workout.data.stretching}\n\n"
+    workout_plan = format_workout_plan(
+        generated_workout.data
     )
     await message.answer("Готово! Ниже твой персонализированный план тренировок🤸🏻‍♂️")
     await message.answer(workout_plan)
