@@ -1,1 +1,1 @@
-DEFAULT_MODEL = "google/gemma-4-31b-it:free"
+DEFAULT_MODEL = "openai/gpt-oss-120b:free"
