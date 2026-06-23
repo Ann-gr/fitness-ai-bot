@@ -28,8 +28,8 @@ async def create_user_repo(
     return user
 
 async def get_user_by_telegram_id(
-        session: AsyncSession, 
-        telegram_id: int
+    session: AsyncSession, 
+    telegram_id: int
 ) -> User | None:
     stmt = select(User).where(User.telegram_id == telegram_id)
     result = await session.execute(stmt)
