@@ -2,7 +2,7 @@ from app.ai.schemas.workout_plan import WorkoutPlanSchema
 
 def format_workout_plan(
     plan: WorkoutPlanSchema
-) -> list[str]:
+) -> str:
     workout_plan = []
 
     workout_title = plan.title
@@ -49,4 +49,4 @@ def format_workout_plan(
             
         workout_plan.append("")
 
-    return ["\n".join(workout_plan)]
+    return "\n".join(workout_plan) 
