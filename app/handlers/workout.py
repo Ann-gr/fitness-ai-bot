@@ -42,6 +42,5 @@ async def start_workout_generation(message: Message, session: AsyncSession):
     )
     
     await message.answer("Готово! Ниже твой персонализированный план тренировок🤸🏻‍♂️")
-    for message_text in formatted_plan:
-        await message.answer(message_text)
+    await message.answer(formatted_plan)
     return

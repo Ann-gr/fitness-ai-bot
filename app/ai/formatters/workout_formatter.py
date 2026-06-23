@@ -49,4 +49,4 @@ def format_workout_plan(
             
         workout_plan.append("")
 
-    return "\n".join(workout_plan) 
+    return ["\n".join(workout_plan)]
