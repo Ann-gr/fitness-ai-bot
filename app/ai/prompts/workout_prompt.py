@@ -7,7 +7,7 @@ JSON_FORMAT = """
     "...",
     "..."
   ],
-  "workouts": [
+  "days": [
     {
       "name": "string",
       "goal": "string",
