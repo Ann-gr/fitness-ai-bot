@@ -3,11 +3,11 @@ from app.dto.user import UserProfileDTO
 JSON_FORMAT = """
 {
   "title": "string",
-  "recommendations": [
+  "workout_recommendations": [
     "...",
     "..."
   ],
-  "days": [
+  "workout_days": [
     {
       "name": "string",
       "goal": "string",
@@ -15,7 +15,6 @@ JSON_FORMAT = """
         {
           "name": "string",
           "rest_seconds": 90,
-          "notes": "string",
           "sets": [
             {
               "reps": 12
