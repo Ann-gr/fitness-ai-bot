@@ -18,7 +18,14 @@ async def start_workout_generation(
     message: Message, 
     session: AsyncSession
 ):
-    await message.answer("Начинаю генерацию плана...")
+    await message.answer(
+        "⏳ Генерирую тренировочный план..."
+    )
+    print(
+        "WORKOUT START",
+        message.message_id,
+        message.date
+    )
     time_start = time.monotonic()
     telegram_id = message.from_user.id
     result = await get_user_service(session, telegram_id)
