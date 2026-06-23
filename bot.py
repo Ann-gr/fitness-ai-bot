@@ -57,5 +57,5 @@ async def webhook(request: Request):
 
     update = Update.model_validate(data) # создаём Update object
     await dp.feed_update(bot, update) # отправляем update в диспетчер
-
+    print("WEBHOOK FINISHED")
     return {"status": "ok"}

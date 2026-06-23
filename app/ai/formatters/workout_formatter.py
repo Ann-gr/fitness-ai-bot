@@ -46,6 +46,7 @@ def format_workout_plan(
                     workout_plan.append(f"Подход {n}: {set_duration_seconds} сек.")
                 elif set_reps:
                     workout_plan.append(f"Подход {n}: {set_reps} повторений")
+            workout_plan.append("")
             
         workout_plan.append("")
 

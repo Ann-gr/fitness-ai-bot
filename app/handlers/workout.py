@@ -9,11 +9,17 @@ from app.ai.formatters.workout_formatter import format_workout_plan
 from app.mappers.user_mapper import to_user_profile_dto
 from app.services.workout_service import save_workout_plan
 from app.services.user_service import get_user_service
+import time
 
 router = Router(name="workout")
 
 @router.message(Command("workout"))
-async def start_workout_generation(message: Message, session: AsyncSession):
+async def start_workout_generation(
+    message: Message, 
+    session: AsyncSession
+):
+    await message.answer("Начинаю генерацию плана...")
+    time_start = time.monotonic()
     telegram_id = message.from_user.id
     result = await get_user_service(session, telegram_id)
     if not result.success:
@@ -39,6 +45,11 @@ async def start_workout_generation(message: Message, session: AsyncSession):
     
     formatted_plan = format_workout_plan(
         plan_schema
+    )
+
+    print(
+        f"WORKOUT GENERATED IN "
+        f"{time.monotonic() - time_start:.2f} sec"
     )
     
     await message.answer("Готово! Ниже твой персонализированный план тренировок🤸🏻‍♂️")
