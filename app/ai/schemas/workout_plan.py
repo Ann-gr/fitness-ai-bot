@@ -40,5 +40,5 @@ class WorkoutDaySchema(BaseModel):
 
 class WorkoutPlanSchema(BaseModel):
     title: str
-    recommendations: list[str]
-    days: list[WorkoutDaySchema]
+    workout_recommendations: list[str]
+    workout_days: list[WorkoutDaySchema]

@@ -84,9 +84,9 @@ def map_workout_plan(
     return WorkoutPlan(
         title=plan_schema.title,
         workout_recommendations=map_recommendations(
-            plan_schema.recommendations
+            plan_schema.workout_recommendations
         ),
         workout_days=map_days(
-            plan_schema.days
+            plan_schema.workout_days
         )
     )

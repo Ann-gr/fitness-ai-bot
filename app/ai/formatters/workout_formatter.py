@@ -10,7 +10,7 @@ def format_workout_plan(
 
     workout_plan.append("")
 
-    workout_recommendations = plan.recommendations
+    workout_recommendations = plan.workout_recommendations
     if workout_recommendations:
         workout_plan.append("📌 Рекомендации:")
         for workout_recommendation in workout_recommendations:
@@ -18,16 +18,18 @@ def format_workout_plan(
 
     workout_plan.append("")
 
-    for workout in plan.workouts:
-        workout_name = workout.name
+    workout_days = plan.workout_days
+    for workout_day in workout_days:
+        workout_name = workout_day.name
         workout_plan.append(f"🏋 {workout_name}")
         
-        workout_goal = workout.goal
+        workout_goal = workout_day.goal
         workout_plan.append(f"🎯 Цель: {workout_goal}")
 
         workout_plan.append("")
 
-        for exercise in workout.exercises:
+        exercises = workout_day.exercises
+        for exercise in exercises:
             exercise_name = exercise.name
             workout_plan.append(f"💪 {exercise_name}")
 
@@ -36,7 +38,8 @@ def format_workout_plan(
 
             workout_plan.append("")
 
-            for n, exercise_set in enumerate(exercise.sets, start=1):
+            sets = exercise.sets
+            for n, exercise_set in enumerate(sets, start=1):
                 set_reps = exercise_set.reps
                 set_duration_seconds = exercise_set.duration_seconds
                 if set_duration_seconds:
