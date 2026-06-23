@@ -27,7 +27,7 @@ def map_exercise(
         name=exercise_schema.name,
         rest_seconds=exercise_schema.rest_seconds,
         position=position,
-        workout_sets=map_exercise_sets(
+        exercise_sets=map_exercise_sets(
             exercise_schema.sets
         )
     )
