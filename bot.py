@@ -51,12 +51,12 @@ app = FastAPI(lifespan=lifespan)
 @app.post(settings.webhook_path)
 async def webhook(request: Request):
     print("WEBHOOK HIT")
-    print("UPDATE ID:", update.update_id)
 
     data = await request.json() # получаем JSON от Telegram
     print(data)
 
     update = Update.model_validate(data) # создаём Update object
+    print("UPDATE ID:", update.update_id)
     await dp.feed_update(bot, update) # отправляем update в диспетчер
     print("WEBHOOK FINISHED")
     return {"status": "ok"}
