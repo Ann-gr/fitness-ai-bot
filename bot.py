@@ -7,6 +7,7 @@ from aiogram.types import Update
 from app.handlers.__init__ import setup_routers
 from aiogram.fsm.storage.memory import MemoryStorage
 from app.database.db import engine, Base
+import asyncio
 
 # создаём бота
 bot = Bot(token=settings.bot_token)
@@ -50,13 +51,10 @@ app = FastAPI(lifespan=lifespan)
 # это URL, куда Telegram шлёт сообщения
 @app.post(settings.webhook_path)
 async def webhook(request: Request):
-    print("WEBHOOK HIT")
-
     data = await request.json() # получаем JSON от Telegram
-    print(data)
-
     update = Update.model_validate(data) # создаём Update object
-    print("UPDATE ID:", update.update_id)
-    await dp.feed_update(bot, update) # отправляем update в диспетчер
-    print("WEBHOOK FINISHED")
+
+    asyncio.create_task(
+        dp.feed_update(bot, update) # отправляем update в диспетчер
+    )
     return {"status": "ok"}
